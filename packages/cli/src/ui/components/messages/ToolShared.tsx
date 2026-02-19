@@ -185,6 +185,7 @@ type ToolInfoProps = {
   emphasis: TextEmphasis;
   progressMessage?: string;
   progressPercent?: number;
+  originalRequestName?: string;
 };
 
 export const ToolInfo: React.FC<ToolInfoProps> = ({
@@ -194,6 +195,7 @@ export const ToolInfo: React.FC<ToolInfoProps> = ({
   emphasis,
   progressMessage,
   progressPercent,
+  originalRequestName,
 }) => {
   const status = mapCoreStatusToDisplayStatus(coreStatus);
   const nameColor = React.useMemo<string>(() => {
@@ -238,6 +240,12 @@ export const ToolInfo: React.FC<ToolInfoProps> = ({
         <Text color={nameColor} bold>
           {name}
         </Text>
+        {originalRequestName && originalRequestName !== name && (
+          <Text color={theme.text.secondary} italic>
+            {' '}
+            (redirection from {originalRequestName})
+          </Text>
+        )}
         {!isCompletedAskUser && (
           <>
             {' '}
